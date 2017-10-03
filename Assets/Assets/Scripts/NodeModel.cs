@@ -37,7 +37,7 @@ public class NodeModel : MonoBehaviour {
             sizeLastButton = 1.3f;
             Toggel *= -1;
         }
-        sizeLastButton += Time.deltaTime * Toggel * 0.1f;
+        sizeLastButton += Time.deltaTime * Toggel * 0.15f;
         this.gameObject.transform.localScale = new Vector3(sizeLastButton, sizeLastButton, 0);
     }
 

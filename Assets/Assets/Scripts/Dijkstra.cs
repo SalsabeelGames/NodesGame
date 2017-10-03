@@ -9,7 +9,7 @@ public class Dijkstra : MonoBehaviour {
     public List<NodeModel> nodes;
     // Use this for initialization
     void Start () {
-		shortest_path("1", "6").ForEach(x => Debug.Log(x.gameObject.transform.FindChild ("Leve").gameObject.GetComponent<Text>().text));
+		shortest_path("4", "3").ForEach(x => Debug.Log(x.gameObject.transform.FindChild ("Leve").gameObject.transform.FindChild ("Number").gameObject.GetComponent<Text>().text));
     }
 	
 	// Update is called once per frame
@@ -67,7 +67,7 @@ public class Dijkstra : MonoBehaviour {
             for (int i = 0; i < smallest.Nodes.Count; i++)
             {
                 var neighbor = smallest.Nodes[i];
-				int destance = Int32.Parse(neighbor.Lines[i].gameObject.transform.FindChild ("Text").gameObject.GetComponent<Text>().text);
+				int destance = Int32.Parse(smallest.Lines[i].gameObject.transform.FindChild ("Text").gameObject.GetComponent<Text>().text);
                 var alt = distances[smallest] + destance;
                 if (alt < distances[neighbor])
                 {

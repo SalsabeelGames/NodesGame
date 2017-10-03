@@ -26,15 +26,11 @@ public class LevelController : MonoBehaviour {
 	}
 
 	public void recChangColor(List<NodeModel> AvailableNodes){
-		Debug.Log (AvailableNodes.Count);
 		foreach (NodeModel av in AvailableNodes) {
-			Debug.Log ("11");
 			List<NodeModel> AvNodes = av.Nodes;
 			changeColor (av.gameObject, NotValidColor);
-			recChangColor ( av.Nodes);
-			Debug.Log ("22");
+			//recChangColor ( av.Nodes);
 		}
-		Debug.Log ("33");
 	}
 
 	void changeColor(GameObject GO, Color color){
