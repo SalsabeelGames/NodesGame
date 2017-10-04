@@ -13,6 +13,9 @@ public class NodeModel : MonoBehaviour {
 	public List<NodeModel> Nodes;
 	public List<LineModel> Lines;
     float sizeLastButton = 1.25f;
+	public Boolean resizing = false;
+
+
     int Toggel = -1;
     private void Start()
     {
@@ -22,7 +25,9 @@ public class NodeModel : MonoBehaviour {
 
     private void Update()
     {
-        scallNodeAnmimation();
+		if (resizing) {
+			scallNodeAnmimation ();
+		}
     }
 
     private void scallNodeAnmimation()
@@ -42,16 +47,14 @@ public class NodeModel : MonoBehaviour {
     }
 
 	public void clickNode(){
-		GameObject GO = this.gameObject.transform.FindChild ("Leve").gameObject.transform.FindChild ("Number").gameObject;
-		Debug.Log(GO.GetComponent<Text> ().text);
-		changeColor (this.gameObject, Color.green);
+		changeColorNode (this, Color.green);
+		SendMessageUpwards ("AddNode", this);
 
 	}
-
-	void changeColor(GameObject GO, Color color){
-
-		GO.gameObject.GetComponent<Image> ().color = color;
-		GameObject innerImageGO = GO.gameObject.transform.FindChild ("Leve").gameObject;
+		
+	private void changeColorNode(NodeModel node, Color color){
+		node.gameObject.GetComponent<Image> ().color = color;
+		GameObject innerImageGO = node.gameObject.transform.Find ("Leve").gameObject;
 		innerImageGO.GetComponent<Image> ().color = color;
 
 	}

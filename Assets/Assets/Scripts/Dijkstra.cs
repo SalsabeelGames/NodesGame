@@ -6,17 +6,75 @@ using UnityEngine.UI;
 
 public class Dijkstra : MonoBehaviour {
 
+	public string StartNodeNumber = "1";
+	public string EndNodeNumber = "7"; 
     public List<NodeModel> nodes;
-    // Use this for initialization
+
+
     void Start () {
-		shortest_path("4", "3").ForEach(x => Debug.Log(x.gameObject.transform.FindChild ("Leve").gameObject.transform.FindChild ("Number").gameObject.GetComponent<Text>().text));
+		Screen.orientation = ScreenOrientation.LandscapeLeft;
+		initLevel ();
+		shortest_path("4", "3").ForEach(x => Debug.Log(x.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text>().text));
     }
-	
-	// Update is called once per frame
+
 	void Update () {
 		
 	}
 
+	private void initLevel() {
+		NodeModel StartNode = this.nodes[0];
+		foreach(NodeModel node in this.nodes){
+			string nodeNumber = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text> ().text;
+			Button ButtonNode = node.gameObject.GetComponent<Button> ();
+			ButtonNode.enabled = false;
+			node.resizing = false;
+			if(nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber ){
+				if(nodeNumber == StartNodeNumber){
+					StartNode = node;
+				}
+				changeColorNode (node,new Color(0.9f,0.2f,0.15f));
+			}
+
+		}
+		InitChildNode (StartNode);
+
+	}
+
+	private void InitChildNode(NodeModel nod){
+		List<NodeModel> childStartNode = nod.Nodes;
+		foreach (NodeModel node in childStartNode) {
+			Button ButtonNode = node.gameObject.GetComponent<Button> ();
+			ButtonNode.enabled = true;
+			node.resizing = true;
+			changeColorNode (node,Color.gray);
+		}
+	}
+
+	public void AddNode(NodeModel node){
+		GameObject GO = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
+		string NodeNumber = GO.GetComponent<Text> ().text;
+		reConstructNodes ();
+		InitChildNode (node);
+
+	} 
+	public void reConstructNodes(){
+		foreach (NodeModel node in this.nodes) {
+			string nodeNumber = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text> ().text;
+			Button ButtonNode = node.gameObject.GetComponent<Button> ();
+			ButtonNode.enabled = false;
+			node.resizing = false;
+			if (nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber) {
+				changeColorNode (node, new Color (0.9f, 0.2f, 0.15f));
+			}
+		}
+	}
+
+	private void changeColorNode(NodeModel node, Color color){
+		node.gameObject.GetComponent<Image> ().color = color;
+		GameObject innerImageGO = node.gameObject.transform.Find ("Leve").gameObject;
+		innerImageGO.GetComponent<Image> ().color = color;
+
+	}
 
     public List<NodeModel> shortest_path(string start, string finish)
     {
@@ -27,7 +85,7 @@ public class Dijkstra : MonoBehaviour {
         List<NodeModel> path = null;
         foreach (var node in this.nodes)
         {
-			GameObject tempNode = node.gameObject.transform.FindChild ("Leve").gameObject.transform.FindChild ("Number").gameObject;
+			GameObject tempNode = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
 			if (tempNode.GetComponent<Text>().text == start)
             {
                 distances[node.GetComponent<NodeModel>()] = 0;
@@ -46,7 +104,7 @@ public class Dijkstra : MonoBehaviour {
 
             var smallest = nodes[0];
             nodes.Remove(smallest);
-			GameObject tempSmallest = smallest.gameObject.transform.FindChild ("Leve").gameObject.transform.FindChild ("Number").gameObject;
+			GameObject tempSmallest = smallest.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
 
 			if (tempSmallest.GetComponent<Text>().text == finish)
             {
@@ -67,7 +125,7 @@ public class Dijkstra : MonoBehaviour {
             for (int i = 0; i < smallest.Nodes.Count; i++)
             {
                 var neighbor = smallest.Nodes[i];
-				int destance = Int32.Parse(smallest.Lines[i].gameObject.transform.FindChild ("Text").gameObject.GetComponent<Text>().text);
+				int destance = Int32.Parse(smallest.Lines[i].gameObject.transform.Find ("Text").gameObject.GetComponent<Text>().text);
                 var alt = distances[smallest] + destance;
                 if (alt < distances[neighbor])
                 {

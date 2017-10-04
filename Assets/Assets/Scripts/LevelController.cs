@@ -11,8 +11,8 @@ public class LevelController : MonoBehaviour {
 	public Color NotValidColor; 
 	void Start () {
 		List<NodeModel> AvailableNodes= StartNode.Nodes;
-		recChangColor (AvailableNodes);
-		Screen.orientation = ScreenOrientation.LandscapeLeft;
+		//recChangColor (AvailableNodes);
+
 	}
 	
 	// Update is called once per frame
@@ -28,7 +28,7 @@ public class LevelController : MonoBehaviour {
 	public void recChangColor(List<NodeModel> AvailableNodes){
 		foreach (NodeModel av in AvailableNodes) {
 			List<NodeModel> AvNodes = av.Nodes;
-			changeColor (av.gameObject, NotValidColor);
+			//changeColor (av.gameObject, NotValidColor);
 			//recChangColor ( av.Nodes);
 		}
 	}
@@ -36,7 +36,7 @@ public class LevelController : MonoBehaviour {
 	void changeColor(GameObject GO, Color color){
 		
 			GO.gameObject.GetComponent<Image> ().color = color;
-			GameObject innerImageGO = GO.gameObject.transform.FindChild ("Leve").gameObject;
+			GameObject innerImageGO = GO.gameObject.transform.Find ("Leve").gameObject;
 			innerImageGO.GetComponent<Image> ().color = color;
 
 	}
