@@ -7670,6 +7670,10 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
+  m_IsActive: 1
+--- !u!114 &742379732
+=======
   m_IsActive: 0
 --- !u!224 &748532805
 RectTransform:
@@ -7692,6 +7696,7 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748532806
+>>>>>>> 7e02fac6ea09a442a6b16d2492d300f01855f17b
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 114775706562172826, guid: ef2e6ac9bb1c2794e8b02c2ec6a8fdd4,
