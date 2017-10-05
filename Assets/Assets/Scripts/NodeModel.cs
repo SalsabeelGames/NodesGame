@@ -14,6 +14,7 @@ public class NodeModel : MonoBehaviour {
 	public List<LineModel> Lines;
     float sizeLastButton = 1.25f;
 	public Boolean resizing = false;
+	public Boolean selected = false;
 
 
     int Toggel = -1;
@@ -47,6 +48,7 @@ public class NodeModel : MonoBehaviour {
     }
 
 	public void clickNode(){
+		selected = true;
 		changeColorNode (this, Color.green);
 		SendMessageUpwards ("AddNode", this);
 
