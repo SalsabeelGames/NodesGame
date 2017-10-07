@@ -9,6 +9,7 @@ public class Dijkstra : MonoBehaviour {
 	public string StartNodeNumber = "1";
 	public string EndNodeNumber = "7"; 
     public List<NodeModel> nodes;
+	public GameObject level;
 	NodeModel StartNode;
 	NodeModel EndNode;
 	public List<NodeModel> clickedNodes;
@@ -49,7 +50,7 @@ public class Dijkstra : MonoBehaviour {
 
 		}
 		InitChildNode (StartNode);
-
+		clickedNodes.Add (StartNode);
 	}
 
 	private void InitChildNode(NodeModel nod){
@@ -69,8 +70,65 @@ public class Dijkstra : MonoBehaviour {
 		}
 	}
 
+	private string getTextNode(NodeModel node){
+		GameObject GO = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
+		string NodeNumber = GO.GetComponent<Text> ().text;
+		return NodeNumber;
+
+	}
+
 	public void AddNode(NodeModel node){
-		clickedNodes.Add (node);
+		
+		int count = clickedNodes.Count;
+		if (count > 1) {
+			if (getTextNode (node) == getTextNode (clickedNodes [count - 2])) {
+				Debug.Log ("yes");
+				string nodeOne = getTextNode (clickedNodes [count - 2]);
+				string nodetwo = getTextNode (clickedNodes [count - 1]);
+				foreach(LineModel line in node.Lines){
+					string nameLine = line.gameObject.transform.name;
+					if(nameLine == "L_"+nodeOne+"_"+nodetwo || nameLine == "L_"+nodetwo+"_"+nodeOne){
+						line.gameObject.GetComponent<Image> ().color = Color.gray;
+						Debug.Log( line.gameObject.transform.name);
+					}
+
+				}
+
+				clickedNodes [count - 1].selected = false;
+				changeColorNode (clickedNodes [count - 1],Color.gray);
+				clickedNodes.Remove (clickedNodes [count - 1]);
+			}else {
+				clickedNodes.Add (node);
+				count = clickedNodes.Count;
+				string nodeOne = getTextNode (clickedNodes [count - 2]);
+				string nodetwo = getTextNode (clickedNodes [count - 1]);
+				foreach(LineModel line in node.Lines){
+					string nameLine = line.gameObject.transform.name;
+					if(nameLine == "L_"+nodeOne+"_"+nodetwo || nameLine == "L_"+nodetwo+"_"+nodeOne){
+						line.gameObject.GetComponent<Image> ().color = Color.green;
+						Debug.Log( line.gameObject.transform.name);
+					}
+
+				}
+			}
+
+		} else {
+			clickedNodes.Add (node);
+			count = clickedNodes.Count;
+			string nodeOne = getTextNode (clickedNodes [count - 2]);
+			string nodetwo = getTextNode (clickedNodes [count - 1]);
+			foreach(LineModel line in node.Lines){
+				string nameLine = line.gameObject.transform.name;
+				if(nameLine == "L_"+nodeOne+"_"+nodetwo || nameLine == "L_"+nodetwo+"_"+nodeOne){
+					line.gameObject.GetComponent<Image> ().color = Color.green;
+					Debug.Log( line.gameObject.transform.name);
+				}
+
+			}
+
+		}
+
+
 		GameObject GO = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
 		string NodeNumber = GO.GetComponent<Text> ().text;
 		reConstructNodes ();
