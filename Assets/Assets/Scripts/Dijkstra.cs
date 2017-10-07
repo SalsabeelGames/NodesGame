@@ -9,12 +9,16 @@ public class Dijkstra : MonoBehaviour {
 	public string StartNodeNumber = "1";
 	public string EndNodeNumber = "7"; 
     public List<NodeModel> nodes;
-
+	NodeModel StartNode;
+	NodeModel EndNode;
+	public List<NodeModel> clickedNodes;
 
     void Start () {
+		NodeModel StartNode = this.nodes[0];
+		NodeModel EndNode = this.nodes[0];
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
 		initLevel ();
-		shortest_path("4", "3").ForEach(x => Debug.Log(x.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text>().text));
+		shortest_path(StartNodeNumber, EndNodeNumber).ForEach(x => Debug.Log(x.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text>().text));
     }
 
 	void Update () {
@@ -22,17 +26,25 @@ public class Dijkstra : MonoBehaviour {
 	}
 
 	private void initLevel() {
-		NodeModel StartNode = this.nodes[0];
+		
 		foreach(NodeModel node in this.nodes){
 			string nodeNumber = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text> ().text;
 			Button ButtonNode = node.gameObject.GetComponent<Button> ();
 			ButtonNode.enabled = false;
 			node.resizing = false;
-			if(nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber ){
-				if(nodeNumber == StartNodeNumber){
+
+			if (nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber) {
+				if (nodeNumber == StartNodeNumber) {
 					StartNode = node;
+					StartNode.selected = true;
 				}
-				changeColorNode (node,new Color(0.9f,0.2f,0.15f));
+				if (nodeNumber == EndNodeNumber) {
+					EndNode = node;
+				}
+				changeColorNode (node, new Color (0.9f, 0.2f, 0.15f));
+			} else {
+
+				changeColorNode (node,Color.gray);
 			}
 
 		}
@@ -41,16 +53,24 @@ public class Dijkstra : MonoBehaviour {
 	}
 
 	private void InitChildNode(NodeModel nod){
+		if(nod.Equals (EndNode)){
+			//TODO: fire end game
+			return;
+		}
 		List<NodeModel> childStartNode = nod.Nodes;
 		foreach (NodeModel node in childStartNode) {
 			Button ButtonNode = node.gameObject.GetComponent<Button> ();
 			ButtonNode.enabled = true;
 			node.resizing = true;
+			if (node.Equals (StartNode) || node.Equals (EndNode) || node.selected) {
+				continue;
+			}
 			changeColorNode (node,Color.gray);
 		}
 	}
 
 	public void AddNode(NodeModel node){
+		clickedNodes.Add (node);
 		GameObject GO = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
 		string NodeNumber = GO.GetComponent<Text> ().text;
 		reConstructNodes ();
