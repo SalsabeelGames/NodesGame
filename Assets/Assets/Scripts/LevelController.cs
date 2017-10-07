@@ -10,10 +10,20 @@ public class LevelController : MonoBehaviour {
 	public NodeModel StartNode;
 	public Color NotValidColor; 
 	void Start () {
-		List<NodeModel> AvailableNodes= StartNode.Nodes;
-		//recChangColor (AvailableNodes);
-
-	}
+        if(this.gameObject.GetComponent<AudioSource>() != null)
+        {
+            if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
+            {
+                this.gameObject.GetComponent<AudioSource>().Play();
+            }
+            else
+            {
+                this.gameObject.GetComponent<AudioSource>().Stop();
+            }
+        }
+        List<NodeModel> AvailableNodes= StartNode.Nodes;
+        //recChangColor (AvailableNodes);
+    }
 	
 	// Update is called once per frame
 	void Update () {

@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMinue : MonoBehaviour {
 
+    public GameObject soundOff;
+    public GameObject soundOn;
+    bool isSoundOn = true;
 	// Use this for initialization
 	void Start () {
 		Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -23,4 +26,20 @@ public class MainMinue : MonoBehaviour {
 	{
 		SceneManager.LoadScene ("GameScene");	
 	}
+
+    public void SoundClick()
+    {
+        soundOn.SetActive(isSoundOn);
+        soundOff.SetActive(!isSoundOn);
+        PlayerPrefs.SetInt("is_sound_on", isSoundOn ? 1 : 0);
+        if (isSoundOn)
+        {
+            this.gameObject.GetComponent<AudioSource>().Play();
+        } else
+        {
+            this.gameObject.GetComponent<AudioSource>().Stop();
+        }
+
+        isSoundOn = !isSoundOn;
+    }
 }
