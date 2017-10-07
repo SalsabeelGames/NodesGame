@@ -10,7 +10,20 @@ public class MainMinue : MonoBehaviour {
     bool isSoundOn = true;
 	// Use this for initialization
 	void Start () {
-		Screen.orientation = ScreenOrientation.LandscapeLeft;
+        if (this.gameObject.GetComponent<AudioSource>() != null)
+        {
+            if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
+            {
+                this.gameObject.GetComponent<AudioSource>().Play();
+                setSoundComponentOn(true);
+            }
+            else
+            {
+                this.gameObject.GetComponent<AudioSource>().Stop();
+                setSoundComponentOn(false);
+            }
+        }
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
 	}
 	
 	// Update is called once per frame
@@ -29,8 +42,7 @@ public class MainMinue : MonoBehaviour {
 
     public void SoundClick()
     {
-        soundOn.SetActive(isSoundOn);
-        soundOff.SetActive(!isSoundOn);
+        setSoundComponentOn(isSoundOn);
         PlayerPrefs.SetInt("is_sound_on", isSoundOn ? 1 : 0);
         if (isSoundOn)
         {
@@ -42,4 +54,12 @@ public class MainMinue : MonoBehaviour {
 
         isSoundOn = !isSoundOn;
     }
+
+    void setSoundComponentOn(bool isSoundOn)
+    {
+        soundOn.SetActive(isSoundOn);
+        soundOff.SetActive(!isSoundOn);
+    }
+
 }
+

@@ -10,7 +10,7 @@ public class LevelController : MonoBehaviour {
 	public NodeModel StartNode;
 	public Color NotValidColor; 
 	void Start () {
-        if(this.gameObject.GetComponent<AudioSource>() != null)
+        if (this.gameObject.GetComponent<AudioSource>() != null)
         {
             if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
             {
