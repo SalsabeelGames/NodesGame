@@ -1,23 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour {
 
-	// Use this for initialization
+	public AudioSource source;
+
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
 		
 	}
 
-	public void clickLevel(int levelNumber){
+	public void clickLevel(){
+		Debug.Log (getTextNode ());
 
+		PlayerPrefs.SetString ("LevelToLoad", getTextNode());
+		UnityEngine.SceneManagement.SceneManager.LoadScene ("GameScene");
+	}
 
-		PlayerPrefs.SetInt ("LevelToLoad", levelNumber);
-		UnityEngine.SceneManagement.SceneManager.LoadScene ("main");
+	private string getTextNode(){
+		GameObject GO = this.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
+		string NodeNumber = GO.GetComponent<Text> ().text;
+		return NodeNumber;
+
 	}
 }

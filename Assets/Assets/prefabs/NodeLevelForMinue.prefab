@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 224435707248827920}
   - component: {fileID: 222636559211040084}
   - component: {fileID: 114791147797081390}
-  - component: {fileID: 114723190774887938}
+  - component: {fileID: 114133509316096442}
   - component: {fileID: 114599007861962184}
   - component: {fileID: 114200476096869544}
   - component: {fileID: 82311245367556526}
@@ -92,8 +92,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d6abf171f09a1ee489719831caf82e64, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: e79c3f7c32fa5d246a45b4a214954897, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -163,6 +163,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114133509316096442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1712354815004348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 82311245367556526}
 --- !u!114 &114171076713157288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,6 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
 --- !u!114 &114599007861962184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,8 +286,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: GameClick
+      - m_Target: {fileID: 114133509316096442}
+        m_MethodName: clickLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -286,21 +299,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114723190774887938
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1712354815004348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c0bd2d9c07a7f740ae919c1c745a35c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Nodes: []
-  Lines: []
-  resizing: 0
-  selected: 0
 --- !u!114 &114791147797081390
 MonoBehaviour:
   m_ObjectHideFlags: 1

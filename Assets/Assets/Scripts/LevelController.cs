@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,10 +7,22 @@ using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour {
 
-	public GameObject cv;
-	public NodeModel StartNode;
-	public Color NotValidColor; 
+	public List<LevelButton> levelsButtons;
+
 	void Start () {
+		
+		if (PlayerPrefs.GetString ("LevelToLoad") == "") {
+			PlayerPrefs.SetString ("LevelToLoad","1");
+		}
+			
+		int levelnumber = Int32.Parse (PlayerPrefs.GetString ("LevelToLoad"));
+		Debug.Log (levelnumber);
+		for(int i =levelnumber; i<levelsButtons.Count; i++ ){
+			Button ButtonNode = levelsButtons[i].gameObject.GetComponent<Button> ();
+			ButtonNode.enabled = false;
+
+		}
+
         if (this.gameObject.GetComponent<AudioSource>() != null)
         {
             if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
@@ -21,8 +34,7 @@ public class LevelController : MonoBehaviour {
                 this.gameObject.GetComponent<AudioSource>().Stop();
             }
         }
-        List<NodeModel> AvailableNodes= StartNode.Nodes;
-        //recChangColor (AvailableNodes);
+
     }
 	
 	// Update is called once per frame

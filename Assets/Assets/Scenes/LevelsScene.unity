@@ -108,6 +108,24 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &7169384 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1074510813}
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
+--- !u!114 &102225450 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1866296240}
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
+--- !u!114 &163043970 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1417415962}
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
 --- !u!1001 &237498063
 Prefab:
   m_ObjectHideFlags: 0
@@ -237,6 +255,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224435707248827920, guid: 3b55aa99a6885434d9690655ef2f27e9,
     type: 2}
   m_PrefabInternal: {fileID: 237498063}
+--- !u!114 &735892166 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1583198478}
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
 --- !u!1 &769574198
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,9 +771,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223a2a4d97867f94ea7a8ba7035a9f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cv: {fileID: 1267024953}
-  StartNode: {fileID: 0}
-  NotValidColor: {r: 0, g: 0, b: 0, a: 0}
+  levelsButtons:
+  - {fileID: 163043970}
+  - {fileID: 735892166}
+  - {fileID: 102225450}
+  - {fileID: 7169384}
+  - {fileID: 2084068410}
+  - {fileID: 2098884199}
+  - {fileID: 1781222934}
 --- !u!82 &1126481947
 AudioSource:
   m_ObjectHideFlags: 0
@@ -763,7 +792,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -951,6 +980,12 @@ Prefab:
       propertyPath: m_Text
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+        type: 2}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 82311245367556526, guid: 3b55aa99a6885434d9690655ef2f27e9,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b55aa99a6885434d9690655ef2f27e9, type: 2}
   m_IsPrefabParent: 0
@@ -1225,7 +1260,8 @@ Prefab:
       propertyPath: m_Text
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 3b55aa99a6885434d9690655ef2f27e9, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &1417415963 stripped
@@ -1362,6 +1398,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224435707248827920, guid: 3b55aa99a6885434d9690655ef2f27e9,
     type: 2}
   m_PrefabInternal: {fileID: 1583198478}
+--- !u!114 &1781222934 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 785393965}
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
 --- !u!1001 &1866296240
 Prefab:
   m_ObjectHideFlags: 0
@@ -1471,3 +1513,15 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224435707248827920, guid: 3b55aa99a6885434d9690655ef2f27e9,
     type: 2}
   m_PrefabInternal: {fileID: 1866296240}
+--- !u!114 &2084068410 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1166928302}
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
+--- !u!114 &2098884199 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114133509316096442, guid: 3b55aa99a6885434d9690655ef2f27e9,
+    type: 2}
+  m_PrefabInternal: {fileID: 237498063}
+  m_Script: {fileID: 11500000, guid: 8911814edc3b909428309ef0bdd2e724, type: 3}
