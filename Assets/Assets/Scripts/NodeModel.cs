@@ -15,6 +15,7 @@ public class NodeModel : MonoBehaviour {
     float sizeLastButton = 1.25f;
 	public Boolean resizing = false;
 	public Boolean selected = false;
+	public AudioSource soundNode;
 
 
     int Toggel = -1;
@@ -48,6 +49,7 @@ public class NodeModel : MonoBehaviour {
     }
 
 	public void clickNode(){
+		soundNode.Play ();
 		selected = true;
 		changeColorNode (this, Color.green);
 		SendMessageUpwards ("AddNode", this);
