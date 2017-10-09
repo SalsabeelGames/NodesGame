@@ -6,6 +6,10 @@ public class GameCamera : MonoBehaviour {
 	public GameObject cv;
 	// Use this for initialization
 	void Start () {
+
+		string LevelToLoadNumber = PlayerPrefs.GetString ("LevelToLoad");
+		cv.gameObject.transform.Find ("level_" + LevelToLoadNumber).gameObject.SetActive (true);
+
         if (this.gameObject.GetComponent<AudioSource>() != null)
         {
             if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
@@ -19,8 +23,15 @@ public class GameCamera : MonoBehaviour {
         }
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
+	float timeLeft = 30.0f;
+	//Text outTime = ""
+	void Update()
+	{
+		timeLeft -= Time.deltaTime;
+		Debug.Log (timeLeft.ToString("0.00").Replace(".",":"));
+		if(timeLeft < 0)
+		{
+			
+		}
 	}
 }

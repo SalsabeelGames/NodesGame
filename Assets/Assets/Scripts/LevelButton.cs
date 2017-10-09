@@ -17,15 +17,15 @@ public class LevelButton : MonoBehaviour {
 	}
 
 	public void clickLevel(){
-		Debug.Log (getTextNode ());
+		/*Debug.Log (getTextNode ());
 		int lastLevel = Int32.Parse (PlayerPrefs.GetString ("LevelToLoad"));
 		int levelNumber = Int32.Parse (getTextNode());
 		if (lastLevel < levelNumber) {
 			PlayerPrefs.SetString ("LevelToLoad", getTextNode ());
 		}
 		Debug.Log (getTextNode ());
-		Debug.Log (PlayerPrefs.GetString ("LevelToLoad"));
-
+		Debug.Log (PlayerPrefs.GetString ("LevelToLoad"));*/
+		PlayerPrefs.SetString ("LevelToLoad", getTextNode ());
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("GameScene");
 	}
 

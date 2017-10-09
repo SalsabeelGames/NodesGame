@@ -11,11 +11,11 @@ public class LevelController : MonoBehaviour {
 
 	void Start () {
 		
-		if (PlayerPrefs.GetString ("LevelToLoad") == "") {
-			PlayerPrefs.SetString ("LevelToLoad","1");
+		if (PlayerPrefs.GetString ("LastOpenLevel") == "") {
+			PlayerPrefs.SetString ("LastOpenLevel","1");
 		}
 
-		int levelnumber = Int32.Parse (PlayerPrefs.GetString ("LevelToLoad"));
+		int levelnumber = Int32.Parse (PlayerPrefs.GetString ("LastOpenLevel"));
 
 		for(int i = 0; (i< levelnumber && i<levelsButtons.Count); i++ ){
 			GameObject LeveNode = levelsButtons [i].gameObject.transform.Find ("Leve").gameObject;
