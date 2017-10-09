@@ -55,8 +55,9 @@ public class Dijkstra : MonoBehaviour {
 
 	private void InitChildNode(NodeModel nod){
 		if(nod.Equals (EndNode)){
-			//TODO: fire end game
-			return;
+            GameObject resultDialog = this.gameObject.transform.parent.Find("back_image").gameObject;
+            resultDialog.SetActive(true);
+            return;
 		}
 		List<NodeModel> childStartNode = nod.Nodes;
 		foreach (NodeModel node in childStartNode) {

@@ -49,7 +49,17 @@ public class NodeModel : MonoBehaviour {
     }
 
 	public void clickNode(){
-		soundNode.Play ();
+        if (soundNode != null)
+        {
+            if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
+            {
+                soundNode.Play();
+            }
+            else
+            {
+                soundNode.Stop();
+            }
+        }
 		selected = true;
 		changeColorNode (this, Color.green);
 		SendMessageUpwards ("AddNode", this);
