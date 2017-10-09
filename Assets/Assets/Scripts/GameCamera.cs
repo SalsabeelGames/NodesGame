@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameCamera : MonoBehaviour {
-
+	public GameObject cv;
 	// Use this for initialization
 	void Start () {
         if (this.gameObject.GetComponent<AudioSource>() != null)

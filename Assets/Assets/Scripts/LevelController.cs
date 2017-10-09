@@ -14,9 +14,15 @@ public class LevelController : MonoBehaviour {
 		if (PlayerPrefs.GetString ("LevelToLoad") == "") {
 			PlayerPrefs.SetString ("LevelToLoad","1");
 		}
-			
+
 		int levelnumber = Int32.Parse (PlayerPrefs.GetString ("LevelToLoad"));
-		Debug.Log (levelnumber);
+
+		for(int i = 0; (i< levelnumber && i<levelsButtons.Count); i++ ){
+			GameObject LeveNode = levelsButtons [i].gameObject.transform.Find ("Leve").gameObject;
+			LeveNode.SetActive(true);
+
+		}
+
 		for(int i =levelnumber; i<levelsButtons.Count; i++ ){
 			Button ButtonNode = levelsButtons[i].gameObject.GetComponent<Button> ();
 			ButtonNode.enabled = false;

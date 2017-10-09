@@ -78,7 +78,10 @@ public class Dijkstra : MonoBehaviour {
 	}
 
 	public void AddNode(NodeModel node){
-		
+
+		if (node.Equals (EndNode)) {
+
+		}
 		int count = clickedNodes.Count;
 		if (count > 1) {
 			if (getTextNode (node) == getTextNode (clickedNodes [count - 2])) {

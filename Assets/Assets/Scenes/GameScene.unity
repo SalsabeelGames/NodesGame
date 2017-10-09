@@ -840,9 +840,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223a2a4d97867f94ea7a8ba7035a9f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cv: {fileID: 1121604085}
-  StartNode: {fileID: 1728235821}
-  NotValidColor: {r: 0.6985294, g: 0.6985294, b: 0.6985294, a: 1}
+  levelsButtons: []
 --- !u!114 &49605086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,6 +926,7 @@ MonoBehaviour:
   - {fileID: 1303554091}
   - {fileID: 1953762099}
   - {fileID: 1751046858}
+  level: {fileID: 0}
   clickedNodes: []
 --- !u!1001 &54601711
 Prefab:
@@ -7912,6 +7911,7 @@ MonoBehaviour:
   - {fileID: 368487855}
   - {fileID: 437441177}
   - {fileID: 664688282}
+  level: {fileID: 0}
   clickedNodes: []
 --- !u!114 &748532807
 MonoBehaviour:
@@ -7924,9 +7924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223a2a4d97867f94ea7a8ba7035a9f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cv: {fileID: 1299924247}
-  StartNode: {fileID: 248019557}
-  NotValidColor: {r: 0.6985294, g: 0.6985294, b: 0.6985294, a: 1}
+  levelsButtons: []
 --- !u!114 &748532808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12373,6 +12371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08b6fa244b4e5df46b2772f5dd4e5c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cv: {fileID: 1267024953}
 --- !u!1001 &1130343441
 Prefab:
   m_ObjectHideFlags: 0
