@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-public class ResultDialog : MonoBehaviour {
+public class ResultDialog : MonoBehaviour
+{
     public float imageXScale;
     public float imageYScale;
 
@@ -28,5 +31,20 @@ public class ResultDialog : MonoBehaviour {
             }
             this.gameObject.transform.Find("front_image").gameObject.transform.localScale = new Vector3(imageXScale, imageYScale, 0);
         }
+    }
+
+    void setStar(int starNumber, bool isOn)
+    {
+        //name of star images should start from number 1.
+        if(starNumber > 0)
+        {
+            GameObject star = this.gameObject.transform.Find("front_image").gameObject.transform.Find("star_" + starNumber).gameObject;
+            star.SetActive(isOn);
+        }
+    }
+
+    public void onRestartClick()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 }
