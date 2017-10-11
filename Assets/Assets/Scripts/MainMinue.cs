@@ -32,13 +32,21 @@ public class MainMinue : MonoBehaviour {
 		
 	}
 
-	public void Levels ()
+    void Awake()
+    {
+        Amplitude amplitude = Amplitude.Instance;
+        amplitude.logging = true;
+        amplitude.init("192e38bc3f24f012cf6ce443cdc45db4");
+    }
+
+    public void Levels ()
 	{
 		SceneManager.LoadScene ("LevelsScene");	
 	}
 	public void GameClick ()
 	{
-		SceneManager.LoadScene ("GameScene");	
+        Amplitude.Instance.logEvent("GameScene start");
+        SceneManager.LoadScene ("GameScene");	
 	}
 
     public void SoundClick()
