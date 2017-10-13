@@ -42,7 +42,7 @@ public class GameCamera : MonoBehaviour
             }
         }
 
-        dialog.transform.Find("front_image").gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
+        dialog.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
 
@@ -58,16 +58,16 @@ public class GameCamera : MonoBehaviour
 
         if (dialog.activeSelf)
         {
-            if (imageXScale <= 0.37f)
+            if (imageXScale <= 1f)
             {
                 imageXScale += Time.deltaTime * 0.90f;
             }
 
-            if (imageYScale <= 0.82f)
+            if (imageYScale <= 1f)
             {
                 imageYScale += Time.deltaTime * 0.90f;
             }
-            dialog.transform.Find("front_image").gameObject.transform.localScale = new Vector3(imageXScale, imageYScale, 0);
+            dialog.transform.localScale = new Vector3(imageXScale, imageYScale, 0);
         }
     }
 
@@ -76,7 +76,7 @@ public class GameCamera : MonoBehaviour
         //name of star images should start from number 1.
         if (starNumber > 0)
         {
-            GameObject star = this.gameObject.transform.Find("front_image").gameObject.transform.Find("star_" + starNumber).gameObject;
+            GameObject star = dialog.transform.Find("star_" + starNumber).gameObject;
             star.SetActive(isOn);
         }
     }
