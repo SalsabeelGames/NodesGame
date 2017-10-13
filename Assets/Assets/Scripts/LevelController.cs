@@ -12,12 +12,7 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.GetString("LastOpenLevel") == "")
-        {
-            PlayerPrefs.SetString("LastOpenLevel", "1");
-        }
-
-        int levelnumber = Int32.Parse(PlayerPrefs.GetString("LastOpenLevel"));
+        int levelnumber = Int32.Parse(PlayerPrefs.GetString("LastOpenLevel", "1"));
 
         for (int i = 0; (i < levelnumber && i < levelsButtons.Count); i++)
         {

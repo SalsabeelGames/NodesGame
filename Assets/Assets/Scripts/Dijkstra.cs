@@ -68,8 +68,6 @@ public class Dijkstra : MonoBehaviour
         if (nod.Equals(EndNode))
         {
             SendMessageUpwards("viewWinScreen",3);
-           // GameObject resultDialog = this.gameObject.transform.parent.Find("front_image").gameObject;
-           // resultDialog.SetActive(true);
             return;
         }
         List<NodeModel> childStartNode = nod.Nodes;

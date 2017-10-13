@@ -46,6 +46,7 @@ public class MainMinue : MonoBehaviour {
 	public void GameClick ()
 	{
         Amplitude.Instance.logEvent("GameScene start");
+        PlayerPrefs.SetString("LevelToLoad",PlayerPrefs.GetString("LastOpenLevel", "1"));
         SceneManager.LoadScene ("GameScene");	
 	}
 
