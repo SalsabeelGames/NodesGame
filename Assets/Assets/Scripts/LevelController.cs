@@ -12,7 +12,6 @@ public class LevelController : MonoBehaviour
 
     void Start()
     {
-
         if (PlayerPrefs.GetString("LastOpenLevel") == "")
         {
             PlayerPrefs.SetString("LastOpenLevel", "1");
@@ -58,5 +57,10 @@ public class LevelController : MonoBehaviour
         innerImageGO.GetComponent<Image>().color = color;
 
     }
+
+	public void GoToMainScene ()
+	{
+		SceneManager.LoadScene ("main");	
+	}
 
 }

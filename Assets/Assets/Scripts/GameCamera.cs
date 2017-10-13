@@ -105,4 +105,8 @@ public class GameCamera : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
+	public void GoToMainScene ()
+	{
+		SceneManager.LoadScene ("main");	
+	}
 }
