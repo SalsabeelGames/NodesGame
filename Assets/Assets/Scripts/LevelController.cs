@@ -5,29 +5,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class LevelController : MonoBehaviour {
+public class LevelController : MonoBehaviour
+{
 
-	public List<LevelButton> levelsButtons;
+    public List<LevelButton> levelsButtons;
 
-	void Start () {
-		
-		if (PlayerPrefs.GetString ("LastOpenLevel") == "") {
-			PlayerPrefs.SetString ("LastOpenLevel","1");
-		}
+    void Start()
+    {
 
-		int levelnumber = Int32.Parse (PlayerPrefs.GetString ("LastOpenLevel"));
+        if (PlayerPrefs.GetString("LastOpenLevel") == "")
+        {
+            PlayerPrefs.SetString("LastOpenLevel", "1");
+        }
 
-		for(int i = 0; (i< levelnumber && i<levelsButtons.Count); i++ ){
-			GameObject LeveNode = levelsButtons [i].gameObject.transform.Find ("Leve").gameObject;
-			LeveNode.SetActive(true);
+        int levelnumber = Int32.Parse(PlayerPrefs.GetString("LastOpenLevel"));
 
-		}
+        for (int i = 0; (i < levelnumber && i < levelsButtons.Count); i++)
+        {
+            GameObject LeveNode = levelsButtons[i].gameObject.transform.Find("Leve").gameObject;
+            LeveNode.SetActive(true);
+        }
 
-		for(int i =levelnumber; i<levelsButtons.Count; i++ ){
-			Button ButtonNode = levelsButtons[i].gameObject.GetComponent<Button> ();
-			ButtonNode.enabled = false;
-
-		}
+        for (int i = levelnumber; i < levelsButtons.Count; i++)
+        {
+            Button ButtonNode = levelsButtons[i].gameObject.GetComponent<Button>();
+            ButtonNode.enabled = false;
+        }
 
         if (this.gameObject.GetComponent<AudioSource>() != null)
         {
@@ -42,32 +45,18 @@ public class LevelController : MonoBehaviour {
         }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
 
-	}
+    void Update()
+    {
 
-	public static void clickNode(int NodeNumber){
+    }
 
-	}
+    void changeColor(GameObject GO, Color color)
+    {
+        GO.gameObject.GetComponent<Image>().color = color;
+        GameObject innerImageGO = GO.gameObject.transform.Find("Leve").gameObject;
+        innerImageGO.GetComponent<Image>().color = color;
 
-	public void recChangColor(List<NodeModel> AvailableNodes){
-		foreach (NodeModel av in AvailableNodes) {
-			List<NodeModel> AvNodes = av.Nodes;
-			//changeColor (av.gameObject, NotValidColor);
-			//recChangColor ( av.Nodes);
-		}
-	}
-
-	void changeColor(GameObject GO, Color color){
-		
-			GO.gameObject.GetComponent<Image> ().color = color;
-			GameObject innerImageGO = GO.gameObject.transform.Find ("Leve").gameObject;
-			innerImageGO.GetComponent<Image> ().color = color;
-
-	}
-
+    }
 
 }

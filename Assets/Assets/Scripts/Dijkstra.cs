@@ -4,159 +4,192 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dijkstra : MonoBehaviour {
+public class Dijkstra : MonoBehaviour
+{
 
-	public string StartNodeNumber = "1";
-	public string EndNodeNumber = "7"; 
+    public string StartNodeNumber = "1";
+    public string EndNodeNumber = "7";
     public List<NodeModel> nodes;
-	public GameObject level;
-	NodeModel StartNode;
-	NodeModel EndNode;
-	public List<NodeModel> clickedNodes;
+    public GameObject level;
+    NodeModel StartNode;
+    NodeModel EndNode;
+    public List<NodeModel> clickedNodes;
 
-    void Start () {
-		NodeModel StartNode = this.nodes[0];
-		NodeModel EndNode = this.nodes[0];
-		Screen.orientation = ScreenOrientation.LandscapeLeft;
-		initLevel ();
-		shortest_path(StartNodeNumber, EndNodeNumber).ForEach(x => Debug.Log(x.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text>().text));
+    void Start()
+    {
+        NodeModel StartNode = this.nodes[0];
+        NodeModel EndNode = this.nodes[0];
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        initLevel();
+        shortest_path(StartNodeNumber, EndNodeNumber);//.ForEach(x => Debug.Log(x.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject.GetComponent<Text>().text));
     }
 
-	void Update () {
-		
-	}
+    void Update()
+    {
 
-	private void initLevel() {
-		
-		foreach(NodeModel node in this.nodes){
-			string nodeNumber = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text> ().text;
-			Button ButtonNode = node.gameObject.GetComponent<Button> ();
-			ButtonNode.enabled = false;
-			node.resizing = false;
+    }
 
-			if (nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber) {
-				if (nodeNumber == StartNodeNumber) {
-					StartNode = node;
-					StartNode.selected = true;
-				}
-				if (nodeNumber == EndNodeNumber) {
-					EndNode = node;
-				}
-				changeColorNode (node, new Color (0.9f, 0.2f, 0.15f));
-			} else {
+    private void initLevel()
+    {
 
-				changeColorNode (node,Color.gray);
-			}
+        foreach (NodeModel node in this.nodes)
+        {
+            string nodeNumber = node.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject.GetComponent<Text>().text;
+            Button ButtonNode = node.gameObject.GetComponent<Button>();
+            ButtonNode.enabled = false;
+            node.resizing = false;
 
-		}
-		InitChildNode (StartNode);
-		clickedNodes.Add (StartNode);
-	}
+            if (nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber)
+            {
+                if (nodeNumber == StartNodeNumber)
+                {
+                    StartNode = node;
+                    StartNode.selected = true;
+                }
+                if (nodeNumber == EndNodeNumber)
+                {
+                    EndNode = node;
+                }
+                changeColorNode(node, new Color(0.9f, 0.2f, 0.15f));
+            }
+            else
+            {
 
-	private void InitChildNode(NodeModel nod){
-		if(nod.Equals (EndNode)){
+                changeColorNode(node, Color.gray);
+            }
+
+        }
+        InitChildNode(StartNode);
+        clickedNodes.Add(StartNode);
+    }
+
+    private void InitChildNode(NodeModel nod)
+    {
+        if (nod.Equals(EndNode))
+        {
             GameObject resultDialog = this.gameObject.transform.parent.Find("back_image").gameObject;
             resultDialog.SetActive(true);
             return;
-		}
-		List<NodeModel> childStartNode = nod.Nodes;
-		foreach (NodeModel node in childStartNode) {
-			Button ButtonNode = node.gameObject.GetComponent<Button> ();
-			ButtonNode.enabled = true;
-			node.resizing = true;
-			if (node.Equals (StartNode) || node.Equals (EndNode) || node.selected) {
-				continue;
-			}
-			changeColorNode (node,Color.gray);
-		}
-	}
+        }
+        List<NodeModel> childStartNode = nod.Nodes;
+        foreach (NodeModel node in childStartNode)
+        {
+            Button ButtonNode = node.gameObject.GetComponent<Button>();
+            ButtonNode.enabled = true;
+            node.resizing = true;
+            if (node.Equals(StartNode) || node.Equals(EndNode) || node.selected)
+            {
+                continue;
+            }
+            changeColorNode(node, Color.gray);
+        }
+    }
 
-	private string getTextNode(NodeModel node){
-		GameObject GO = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
-		string NodeNumber = GO.GetComponent<Text> ().text;
-		return NodeNumber;
+    private string getTextNode(NodeModel node)
+    {
+        GameObject GO = node.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject;
+        string NodeNumber = GO.GetComponent<Text>().text;
+        return NodeNumber;
 
-	}
+    }
 
-	public void AddNode(NodeModel node){
+    public void AddNode(NodeModel node)
+    {
 
-		if (node.Equals (EndNode)) {
+        if (node.Equals(EndNode))
+        {
 
-		}
-		int count = clickedNodes.Count;
-		if (count > 1) {
-			if (getTextNode (node) == getTextNode (clickedNodes [count - 2])) {
-				Debug.Log ("yes");
-				string nodeOne = getTextNode (clickedNodes [count - 2]);
-				string nodetwo = getTextNode (clickedNodes [count - 1]);
-				foreach(LineModel line in node.Lines){
-					string nameLine = line.gameObject.transform.name;
-					if(nameLine == "L_"+nodeOne+"_"+nodetwo || nameLine == "L_"+nodetwo+"_"+nodeOne){
-						line.gameObject.GetComponent<Image> ().color = Color.gray;
-						Debug.Log( line.gameObject.transform.name);
-					}
+        }
+        int count = clickedNodes.Count;
+        if (count > 1)
+        {
+            if (getTextNode(node) == getTextNode(clickedNodes[count - 2]))
+            {
+                Debug.Log("yes");
+                string nodeOne = getTextNode(clickedNodes[count - 2]);
+                string nodetwo = getTextNode(clickedNodes[count - 1]);
+                foreach (LineModel line in node.Lines)
+                {
+                    string nameLine = line.gameObject.transform.name;
+                    if (nameLine == "L_" + nodeOne + "_" + nodetwo || nameLine == "L_" + nodetwo + "_" + nodeOne)
+                    {
+                        line.gameObject.GetComponent<Image>().color = Color.gray;
+                        Debug.Log(line.gameObject.transform.name);
+                    }
 
-				}
+                }
 
-				clickedNodes [count - 1].selected = false;
-				changeColorNode (clickedNodes [count - 1],Color.gray);
-				clickedNodes.Remove (clickedNodes [count - 1]);
-			}else {
-				clickedNodes.Add (node);
-				count = clickedNodes.Count;
-				string nodeOne = getTextNode (clickedNodes [count - 2]);
-				string nodetwo = getTextNode (clickedNodes [count - 1]);
-				foreach(LineModel line in node.Lines){
-					string nameLine = line.gameObject.transform.name;
-					if(nameLine == "L_"+nodeOne+"_"+nodetwo || nameLine == "L_"+nodetwo+"_"+nodeOne){
-						line.gameObject.GetComponent<Image> ().color = Color.green;
-						Debug.Log( line.gameObject.transform.name);
-					}
+                clickedNodes[count - 1].selected = false;
+                changeColorNode(clickedNodes[count - 1], Color.gray);
+                clickedNodes.Remove(clickedNodes[count - 1]);
+            }
+            else
+            {
+                clickedNodes.Add(node);
+                count = clickedNodes.Count;
+                string nodeOne = getTextNode(clickedNodes[count - 2]);
+                string nodetwo = getTextNode(clickedNodes[count - 1]);
+                foreach (LineModel line in node.Lines)
+                {
+                    string nameLine = line.gameObject.transform.name;
+                    if (nameLine == "L_" + nodeOne + "_" + nodetwo || nameLine == "L_" + nodetwo + "_" + nodeOne)
+                    {
+                        line.gameObject.GetComponent<Image>().color = Color.green;
+                        Debug.Log(line.gameObject.transform.name);
+                    }
 
-				}
-			}
+                }
+            }
 
-		} else {
-			clickedNodes.Add (node);
-			count = clickedNodes.Count;
-			string nodeOne = getTextNode (clickedNodes [count - 2]);
-			string nodetwo = getTextNode (clickedNodes [count - 1]);
-			foreach(LineModel line in node.Lines){
-				string nameLine = line.gameObject.transform.name;
-				if(nameLine == "L_"+nodeOne+"_"+nodetwo || nameLine == "L_"+nodetwo+"_"+nodeOne){
-					line.gameObject.GetComponent<Image> ().color = Color.green;
-					Debug.Log( line.gameObject.transform.name);
-				}
+        }
+        else
+        {
+            clickedNodes.Add(node);
+            count = clickedNodes.Count;
+            string nodeOne = getTextNode(clickedNodes[count - 2]);
+            string nodetwo = getTextNode(clickedNodes[count - 1]);
+            foreach (LineModel line in node.Lines)
+            {
+                string nameLine = line.gameObject.transform.name;
+                if (nameLine == "L_" + nodeOne + "_" + nodetwo || nameLine == "L_" + nodetwo + "_" + nodeOne)
+                {
+                    line.gameObject.GetComponent<Image>().color = Color.green;
+                    Debug.Log(line.gameObject.transform.name);
+                }
 
-			}
+            }
 
-		}
+        }
 
 
-		GameObject GO = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
-		string NodeNumber = GO.GetComponent<Text> ().text;
-		reConstructNodes ();
-		InitChildNode (node);
+        GameObject GO = node.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject;
+        string NodeNumber = GO.GetComponent<Text>().text;
+        reConstructNodes();
+        InitChildNode(node);
 
-	} 
-	public void reConstructNodes(){
-		foreach (NodeModel node in this.nodes) {
-			string nodeNumber = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject.GetComponent<Text> ().text;
-			Button ButtonNode = node.gameObject.GetComponent<Button> ();
-			ButtonNode.enabled = false;
-			node.resizing = false;
-			if (nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber) {
-				changeColorNode (node, new Color (0.9f, 0.2f, 0.15f));
-			}
-		}
-	}
+    }
+    public void reConstructNodes()
+    {
+        foreach (NodeModel node in this.nodes)
+        {
+            string nodeNumber = node.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject.GetComponent<Text>().text;
+            Button ButtonNode = node.gameObject.GetComponent<Button>();
+            ButtonNode.enabled = false;
+            node.resizing = false;
+            if (nodeNumber == EndNodeNumber || nodeNumber == StartNodeNumber)
+            {
+                changeColorNode(node, new Color(0.9f, 0.2f, 0.15f));
+            }
+        }
+    }
 
-	private void changeColorNode(NodeModel node, Color color){
-		node.gameObject.GetComponent<Image> ().color = color;
-		GameObject innerImageGO = node.gameObject.transform.Find ("Leve").gameObject;
-		innerImageGO.GetComponent<Image> ().color = color;
+    private void changeColorNode(NodeModel node, Color color)
+    {
+        node.gameObject.GetComponent<Image>().color = color;
+        GameObject innerImageGO = node.gameObject.transform.Find("Leve").gameObject;
+        innerImageGO.GetComponent<Image>().color = color;
 
-	}
+    }
 
     public List<NodeModel> shortest_path(string start, string finish)
     {
@@ -167,8 +200,8 @@ public class Dijkstra : MonoBehaviour {
         List<NodeModel> path = null;
         foreach (var node in this.nodes)
         {
-			GameObject tempNode = node.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
-			if (tempNode.GetComponent<Text>().text == start)
+            GameObject tempNode = node.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject;
+            if (tempNode.GetComponent<Text>().text == start)
             {
                 distances[node.GetComponent<NodeModel>()] = 0;
             }
@@ -186,9 +219,9 @@ public class Dijkstra : MonoBehaviour {
 
             var smallest = nodes[0];
             nodes.Remove(smallest);
-			GameObject tempSmallest = smallest.gameObject.transform.Find ("Leve").gameObject.transform.Find ("Number").gameObject;
+            GameObject tempSmallest = smallest.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject;
 
-			if (tempSmallest.GetComponent<Text>().text == finish)
+            if (tempSmallest.GetComponent<Text>().text == finish)
             {
                 path = new List<NodeModel>();
                 while (previous.ContainsKey(smallest))
@@ -207,7 +240,7 @@ public class Dijkstra : MonoBehaviour {
             for (int i = 0; i < smallest.Nodes.Count; i++)
             {
                 var neighbor = smallest.Nodes[i];
-				int destance = Int32.Parse(smallest.Lines[i].gameObject.transform.Find ("Text").gameObject.GetComponent<Text>().text);
+                int destance = Int32.Parse(smallest.Lines[i].gameObject.transform.Find("Text").gameObject.GetComponent<Text>().text);
                 var alt = distances[smallest] + destance;
                 if (alt < distances[neighbor])
                 {

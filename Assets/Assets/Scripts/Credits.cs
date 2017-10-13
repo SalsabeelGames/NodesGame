@@ -11,12 +11,14 @@ public class Credits : MonoBehaviour, IPointerClickHandler
     bool isCreditVisiable = false;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         if (isCreditVisiable)
         {
             if (imageXScale <= 0.37f)
@@ -30,7 +32,6 @@ public class Credits : MonoBehaviour, IPointerClickHandler
             }
             this.gameObject.transform.Find("front_image").gameObject.transform.localScale = new Vector3(imageXScale, imageYScale, 0);
         }
-        
     }
 
     public void showCredits()
