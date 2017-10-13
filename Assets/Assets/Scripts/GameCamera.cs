@@ -19,8 +19,8 @@ public class GameCamera : MonoBehaviour
     void Start()
     {
 
-        string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad");
-        this.gameObject.transform.Find("level_" + LevelToLoadNumber).gameObject.SetActive(true);
+        string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad", 1);
+        gameObject.transform.Find("level_" + LevelToLoadNumber).gameObject.SetActive(true);
 
         if (LevelToLoadNumber == "1")
         {
