@@ -67,7 +67,7 @@ public class Dijkstra : MonoBehaviour
     {
         if (nod.Equals(EndNode))
         {
-            GameObject resultDialog = this.gameObject.transform.parent.Find("back_image").gameObject;
+            GameObject resultDialog = this.gameObject.transform.parent.Find("front_image").gameObject;
             resultDialog.SetActive(true);
             return;
         }

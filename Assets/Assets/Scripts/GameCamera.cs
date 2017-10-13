@@ -14,6 +14,7 @@ public class GameCamera : MonoBehaviour
     public GameObject dialog;
     public float imageXScale;
     public float imageYScale;
+	public AudioSource sound;
 
     void Start()
     {
@@ -30,15 +31,15 @@ public class GameCamera : MonoBehaviour
             timeLeft = 20.0f;
         }
 
-        if (this.gameObject.GetComponent<AudioSource>() != null)
+        if (sound!= null)
         {
             if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
             {
-                this.gameObject.GetComponent<AudioSource>().Play();
+                sound.Play();
             }
             else
             {
-                this.gameObject.GetComponent<AudioSource>().Stop();
+                sound.Stop();
             }
         }
 
@@ -60,12 +61,12 @@ public class GameCamera : MonoBehaviour
         {
             if (imageXScale <= 1f)
             {
-                imageXScale += Time.deltaTime * 0.90f;
+                imageXScale += Time.deltaTime * 1.90f;
             }
 
             if (imageYScale <= 1f)
             {
-                imageYScale += Time.deltaTime * 0.90f;
+                imageYScale += Time.deltaTime * 1.90f;
             }
             dialog.transform.localScale = new Vector3(imageXScale, imageYScale, 0);
         }
@@ -109,4 +110,6 @@ public class GameCamera : MonoBehaviour
 	{
 		SceneManager.LoadScene ("main");	
 	}
+
+
 }

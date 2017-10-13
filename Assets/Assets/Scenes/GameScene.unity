@@ -5907,7 +5907,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &505552063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13640,6 +13640,7 @@ MonoBehaviour:
   dialog: {fileID: 505552062}
   imageXScale: 0
   imageYScale: 0
+  sound: {fileID: 1126481946}
 --- !u!224 &1277492474 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224243180067977998, guid: 24b7bdd0a3a15b24f9c014bbc0f04146,
