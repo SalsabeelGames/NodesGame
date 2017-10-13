@@ -14,8 +14,8 @@ public class GameCamera : MonoBehaviour
     public GameObject dialog;
     public float imageXScale;
     public float imageYScale;
-	public AudioSource sound;
-
+    public AudioSource sound;
+    private bool countTime = true;
     void Start()
     {
 
@@ -31,7 +31,7 @@ public class GameCamera : MonoBehaviour
             timeLeft = 20.0f;
         }
 
-        if (sound!= null)
+        if (sound != null)
         {
             if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)
             {
@@ -50,11 +50,15 @@ public class GameCamera : MonoBehaviour
     //Text outTime = ""
     void Update()
     {
-        timeLeft -= Time.deltaTime;
-        textTime.text = timeLeft.ToString("0.00").Replace(".", ":");
+        if (countTime)
+        {
+            timeLeft -= Time.deltaTime;
+            textTime.text = timeLeft.ToString("0.0").Replace(".", ":");
+        }
         if (timeLeft < 0)
         {
             //TODO:show fail dialog	
+            viewFailScreen();
         }
 
         if (dialog.activeSelf)
@@ -69,16 +73,6 @@ public class GameCamera : MonoBehaviour
                 imageYScale += Time.deltaTime * 1.90f;
             }
             dialog.transform.localScale = new Vector3(imageXScale, imageYScale, 0);
-        }
-    }
-
-    void setStar(int starNumber, bool isOn)
-    {
-        //name of star images should start from number 1.
-        if (starNumber > 0)
-        {
-            GameObject star = dialog.transform.Find("star_" + starNumber).gameObject;
-            star.SetActive(isOn);
         }
     }
 
@@ -102,14 +96,52 @@ public class GameCamera : MonoBehaviour
         }
     }
 
+    private void viewFailScreen()
+    {
+        dialog.transform.Find("Label").GetComponent<Text>().text = "Try Again";
+        dialog.transform.Find("next").GetComponent<Button>().interactable = false;
+        dialog.SetActive(true);
+		countTime = false;
+		timeLeft = 1;
+    }
+
+    private void viewWinScreen(int countStars)
+    {
+        dialog.transform.Find("Label").GetComponent<Text>().text = "Congratulations";
+        dialog.transform.Find("next").GetComponent<Button>().interactable = true;
+        dialog.SetActive(true);
+        setStars(countStars);
+		countTime = false;
+    }
+
+    private void setStars(int count)
+    {
+        if (count > 0)
+        {
+            for (int i = 1; i <= count; i++)
+            {
+                setStar(i, true);
+            }
+        }
+    }
+    private void setStar(int starNumber, bool isOn)
+    {
+        //name of star images should start from number 1.
+        if (starNumber > 0)
+        {
+            GameObject star = dialog.transform.Find("star_" + starNumber).gameObject;
+            star.SetActive(isOn);
+        }
+    }
+
     public void onRestartClick()
     {
         SceneManager.LoadScene("GameScene");
     }
-	public void GoToMainScene ()
-	{
-		SceneManager.LoadScene ("main");	
-	}
+    public void GoToMainScene()
+    {
+        SceneManager.LoadScene("main");
+    }
 
 
 }

@@ -67,8 +67,9 @@ public class Dijkstra : MonoBehaviour
     {
         if (nod.Equals(EndNode))
         {
-            GameObject resultDialog = this.gameObject.transform.parent.Find("front_image").gameObject;
-            resultDialog.SetActive(true);
+            SendMessageUpwards("viewWinScreen",3);
+           // GameObject resultDialog = this.gameObject.transform.parent.Find("front_image").gameObject;
+           // resultDialog.SetActive(true);
             return;
         }
         List<NodeModel> childStartNode = nod.Nodes;
@@ -95,11 +96,6 @@ public class Dijkstra : MonoBehaviour
 
     public void AddNode(NodeModel node)
     {
-
-        if (node.Equals(EndNode))
-        {
-
-        }
         int count = clickedNodes.Count;
         if (count > 1)
         {
