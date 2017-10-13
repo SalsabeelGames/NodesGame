@@ -7,7 +7,7 @@ public class MainMinue : MonoBehaviour {
 
     public GameObject soundOff;
     public GameObject soundOn;
-    bool isSoundOn = true;
+    bool isSoundOn = false;
     
     // Use this for initialization
     void Start () {
@@ -51,6 +51,7 @@ public class MainMinue : MonoBehaviour {
 
     public void SoundClick()
     {
+        isSoundOn = PlayerPrefs.GetInt("is_sound_on", 0) == 1 ? false : true;
         setSoundComponentOn(isSoundOn);
         PlayerPrefs.SetInt("is_sound_on", isSoundOn ? 1 : 0);
         if (isSoundOn)
@@ -61,7 +62,6 @@ public class MainMinue : MonoBehaviour {
             this.gameObject.GetComponent<AudioSource>().Stop();
         }
 
-        isSoundOn = !isSoundOn;
     }
 
     void setSoundComponentOn(bool isSoundOn)
