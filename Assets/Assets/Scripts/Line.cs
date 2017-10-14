@@ -25,7 +25,7 @@ public class Line : MonoBehaviour
             new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0.0f), new GradientAlphaKey(alpha, 1.0f) }
             );
         lineRenderer.colorGradient = gradient;
-        
+
         lineRenderer.SetPositions(new Vector3[] { node1.transform.position, node2.transform.position });
         Debug.Log(node1.transform.position);
         Debug.Log(node2.transform.position);
@@ -34,6 +34,6 @@ public class Line : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -14,14 +14,15 @@ public class Dijkstra : MonoBehaviour
     NodeModel StartNode;
     NodeModel EndNode;
     public List<NodeModel> clickedNodes;
-
+    private int shortest = 999;
     void Start()
     {
         NodeModel StartNode = this.nodes[0];
         NodeModel EndNode = this.nodes[0];
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         initLevel();
-        shortest_path(StartNodeNumber, EndNodeNumber);//.ForEach(x => Debug.Log(x.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject.GetComponent<Text>().text));
+        getScore();
+        //shortest_path(StartNodeNumber, EndNodeNumber).ForEach(x => Debug.Log(x.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject.GetComponent<Text>().text));
     }
 
     void Update()
@@ -67,7 +68,15 @@ public class Dijkstra : MonoBehaviour
     {
         if (nod.Equals(EndNode))
         {
-            SendMessageUpwards("viewWinScreen",3);
+            int score = getScore();
+            if (score == 0)
+            {
+                SendMessageUpwards("viewFailScreen", score);
+            }
+            else
+            {
+                SendMessageUpwards("viewWinScreen", score);
+            }
             return;
         }
         List<NodeModel> childStartNode = nod.Nodes;
@@ -82,6 +91,49 @@ public class Dijkstra : MonoBehaviour
             }
             changeColorNode(node, Color.gray);
         }
+    }
+
+    private int getScore()
+    {
+        shortest_path(StartNodeNumber, EndNodeNumber);
+        int lengthPlayer = getlengthPlayerPath();
+        if (lengthPlayer == shortest)
+        {
+            return 3;
+        }
+        else if ((shortest + 5) > lengthPlayer)
+        {
+            return 2;
+        }
+        else if ((shortest + 10) > lengthPlayer)
+        {
+            return 1;
+        }
+        return 0;
+    }
+
+    private int getlengthPlayerPath()
+    {
+        int length = 0;
+        for (int i = 1; i < clickedNodes.Count; i++)
+        {
+            string nodeOneNumber = getTextNode(clickedNodes[i - 1]);
+            string nodetwoNumber = getTextNode(clickedNodes[i]);
+            GameObject line;
+            try
+            {
+                string nameLine = "L_" + nodeOneNumber + "_" + nodetwoNumber;
+                line = this.transform.Find("BG").gameObject.transform.Find(nameLine).gameObject;
+            }
+            catch
+            {
+                string nameLine = "L_" + nodetwoNumber + "_" + nodeOneNumber;
+                line = this.transform.Find("BG").gameObject.transform.Find(nameLine).gameObject;
+            }
+            int destance = Int32.Parse(line.transform.Find("Text").gameObject.GetComponent<Text>().text);
+            length += destance;
+        }
+        return length;
     }
 
     private string getTextNode(NodeModel node)
@@ -99,7 +151,6 @@ public class Dijkstra : MonoBehaviour
         {
             if (getTextNode(node) == getTextNode(clickedNodes[count - 2]))
             {
-                Debug.Log("yes");
                 string nodeOne = getTextNode(clickedNodes[count - 2]);
                 string nodetwo = getTextNode(clickedNodes[count - 1]);
                 foreach (LineModel line in node.Lines)
@@ -108,7 +159,6 @@ public class Dijkstra : MonoBehaviour
                     if (nameLine == "L_" + nodeOne + "_" + nodetwo || nameLine == "L_" + nodetwo + "_" + nodeOne)
                     {
                         line.gameObject.GetComponent<Image>().color = Color.gray;
-                        Debug.Log(line.gameObject.transform.name);
                     }
 
                 }
@@ -129,7 +179,6 @@ public class Dijkstra : MonoBehaviour
                     if (nameLine == "L_" + nodeOne + "_" + nodetwo || nameLine == "L_" + nodetwo + "_" + nodeOne)
                     {
                         line.gameObject.GetComponent<Image>().color = Color.green;
-                        Debug.Log(line.gameObject.transform.name);
                     }
 
                 }
@@ -148,7 +197,6 @@ public class Dijkstra : MonoBehaviour
                 if (nameLine == "L_" + nodeOne + "_" + nodetwo || nameLine == "L_" + nodetwo + "_" + nodeOne)
                 {
                     line.gameObject.GetComponent<Image>().color = Color.green;
-                    Debug.Log(line.gameObject.transform.name);
                 }
 
             }
@@ -242,8 +290,9 @@ public class Dijkstra : MonoBehaviour
                     previous[neighbor] = smallest;
                 }
             }
-        }
 
+        }
+        this.shortest = new List<int>(distances.Values)[distances.Count - 1];
         return path;
     }
 }
