@@ -13636,8 +13636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textTime: {fileID: 1059102534}
-  numberLevel: 2
-  countLevel: 15
+  countLevel: 2
   dialog: {fileID: 505552062}
   imageXScale: 0
   imageYScale: 0
