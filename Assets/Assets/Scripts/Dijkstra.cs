@@ -15,6 +15,7 @@ public class Dijkstra : MonoBehaviour
     NodeModel EndNode;
     public List<NodeModel> clickedNodes;
     private int shortest = 999;
+
     void Start()
     {
         NodeModel StartNode = this.nodes[0];
@@ -75,14 +76,20 @@ public class Dijkstra : MonoBehaviour
             }
             else
             {
-                string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad","1");
-                PlayerPrefs.SetInt("Score_"+ LevelToLoadNumber, score);
+                int countLevels = PlayerPrefs.GetInt("countLevels", 1);
+                string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad", "1");
+                PlayerPrefs.SetInt("Score_" + LevelToLoadNumber, score);
                 SendMessageUpwards("viewWinScreen", score);
                 int lastLevel = Int32.Parse(PlayerPrefs.GetString("LastOpenLevel", "1"));
-                PlayerPrefs.SetString("LastOpenLevel", ""+(++lastLevel));
+                int LevelToLoadNumberInt = Int32.Parse(LevelToLoadNumber);
+                if (LevelToLoadNumberInt == lastLevel && lastLevel != countLevels)
+                {
+                    PlayerPrefs.SetString("LastOpenLevel", "" + (++lastLevel));
+                }
             }
             return;
         }
+
         List<NodeModel> childStartNode = nod.Nodes;
         foreach (NodeModel node in childStartNode)
         {
@@ -150,10 +157,42 @@ public class Dijkstra : MonoBehaviour
 
     public void AddNode(NodeModel node)
     {
+
         int count = clickedNodes.Count;
         if (count > 1)
         {
-            if (getTextNode(node) == getTextNode(clickedNodes[count - 2]))
+            int indexNode = clickedNodes.IndexOf(node);
+            if (indexNode != -1)
+            {
+
+
+                int j = indexNode;
+                indexNode++;
+                for (int i = indexNode; i < count; i++)
+                {
+                    string nodeOne = getTextNode(clickedNodes[j]);
+                    string nodetwo = getTextNode(clickedNodes[i]);
+                    foreach (LineModel line in clickedNodes[j].Lines)
+                    {
+                        string nameLine = line.gameObject.transform.name;
+                        if (nameLine == "L_" + nodeOne + "_" + nodetwo || nameLine == "L_" + nodetwo + "_" + nodeOne)
+                        {
+                            line.gameObject.GetComponent<Image>().color = Color.gray;
+                        }
+                    }
+                    j = i;
+                }
+
+
+                for (int i = indexNode; i < count; i++)
+                {
+                    clickedNodes[indexNode].selected = false;
+                    changeColorNode(clickedNodes[indexNode], Color.gray);
+                    clickedNodes.RemoveAt(indexNode);
+                }
+            }
+
+            /*if (getTextNode(node) == getTextNode(clickedNodes[count - 2]))
             {
                 string nodeOne = getTextNode(clickedNodes[count - 2]);
                 string nodetwo = getTextNode(clickedNodes[count - 1]);
@@ -165,15 +204,16 @@ public class Dijkstra : MonoBehaviour
                     {
                         line.gameObject.GetComponent<Image>().color = Color.gray;
                     }
-
                 }
+
+                // clickedNodes.IndexOf();
                 if (clickedNodes[count - 1].count == 0)
                 {
                     clickedNodes[count - 1].selected = false;
                     changeColorNode(clickedNodes[count - 1], Color.gray);
                 }
                 clickedNodes.RemoveAt(count - 1);
-            }
+            }*/
             else
             {
                 if (node.selected)

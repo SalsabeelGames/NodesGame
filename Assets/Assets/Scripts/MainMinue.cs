@@ -10,6 +10,7 @@ public class MainMinue : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
+        //PlayerPrefs.DeleteAll();
         if (this.gameObject.GetComponent<AudioSource>() != null)
         {
             if (PlayerPrefs.GetInt("is_sound_on", 1) == 1)

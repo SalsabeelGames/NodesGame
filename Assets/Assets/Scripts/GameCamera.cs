@@ -9,17 +9,18 @@ public class GameCamera : MonoBehaviour
 {
 
     public Text textTime;
-    public string numberLevel;
+    public int numberLevel;
     float timeLeft = 30.0f;
     public GameObject dialog;
     public float imageXScale;
     public float imageYScale;
     public AudioSource sound;
     private bool countTime = true;
+    
     void Start()
     {
-
-        string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad","1");
+        PlayerPrefs.SetInt("countLevels", numberLevel);
+        string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad", "1");
         this.gameObject.transform.Find("level_" + LevelToLoadNumber).gameObject.SetActive(true);
 
         if (LevelToLoadNumber == "1")
@@ -78,14 +79,14 @@ public class GameCamera : MonoBehaviour
 
     public void GoToNextLevel()
     {
-        string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad");
+        int LevelToLoadNumber = Int32.Parse(PlayerPrefs.GetString("LevelToLoad"));
         if (LevelToLoadNumber == numberLevel)
         {
 
         }
         else
         {
-            int nextLevelNumber = (Int32.Parse(LevelToLoadNumber) + 1);
+            int nextLevelNumber = LevelToLoadNumber + 1;
             PlayerPrefs.SetString("LevelToLoad", "" + nextLevelNumber);
             int LastOpenLevel = Int32.Parse(PlayerPrefs.GetString("LastOpenLevel"));
             if (LastOpenLevel < nextLevelNumber)
@@ -101,8 +102,8 @@ public class GameCamera : MonoBehaviour
         dialog.transform.Find("Label").GetComponent<Text>().text = "Try Again";
         dialog.transform.Find("next").GetComponent<Button>().interactable = false;
         dialog.SetActive(true);
-		countTime = false;
-		timeLeft = 1;
+        countTime = false;
+        timeLeft = 1;
     }
 
     private void viewWinScreen(int countStars)
@@ -111,7 +112,7 @@ public class GameCamera : MonoBehaviour
         dialog.transform.Find("next").GetComponent<Button>().interactable = true;
         dialog.SetActive(true);
         setStars(countStars);
-		countTime = false;
+        countTime = false;
     }
 
     private void setStars(int count)
