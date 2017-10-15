@@ -17,9 +17,9 @@ public class NodeModel : MonoBehaviour
     public Boolean resizing = false;
     public Boolean selected = false;
     public AudioSource soundNode;
-
-
+    public int count = 0;
     int Toggel = -1;
+
     private void Start()
     {
 

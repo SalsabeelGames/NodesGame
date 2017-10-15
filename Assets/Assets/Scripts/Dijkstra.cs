@@ -153,6 +153,7 @@ public class Dijkstra : MonoBehaviour
             {
                 string nodeOne = getTextNode(clickedNodes[count - 2]);
                 string nodetwo = getTextNode(clickedNodes[count - 1]);
+
                 foreach (LineModel line in node.Lines)
                 {
                     string nameLine = line.gameObject.transform.name;
@@ -162,13 +163,19 @@ public class Dijkstra : MonoBehaviour
                     }
 
                 }
-
-                clickedNodes[count - 1].selected = false;
-                changeColorNode(clickedNodes[count - 1], Color.gray);
-                clickedNodes.Remove(clickedNodes[count - 1]);
+                if (clickedNodes[count - 1].count == 0)
+                {
+                    clickedNodes[count - 1].selected = false;
+                    changeColorNode(clickedNodes[count - 1], Color.gray);
+                }
+                clickedNodes.RemoveAt(count - 1);
             }
             else
             {
+                if (node.selected)
+                {
+                    node.count++;
+                }
                 clickedNodes.Add(node);
                 count = clickedNodes.Count;
                 string nodeOne = getTextNode(clickedNodes[count - 2]);
@@ -210,6 +217,7 @@ public class Dijkstra : MonoBehaviour
         InitChildNode(node);
 
     }
+
     public void reConstructNodes()
     {
         foreach (NodeModel node in this.nodes)
