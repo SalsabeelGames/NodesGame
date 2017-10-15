@@ -75,7 +75,11 @@ public class Dijkstra : MonoBehaviour
             }
             else
             {
+                string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad","1");
+                PlayerPrefs.SetInt("Score_"+ LevelToLoadNumber, score);
                 SendMessageUpwards("viewWinScreen", score);
+                int lastLevel = Int32.Parse(PlayerPrefs.GetString("LastOpenLevel", "1"));
+                PlayerPrefs.SetString("LastOpenLevel", ""+(++lastLevel));
             }
             return;
         }
