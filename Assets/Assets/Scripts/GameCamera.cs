@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Facebook.Unity;
 
 public class GameCamera : MonoBehaviour
 {
 
     public Text textTime;
-    public string numberLevel;
+    public string countLevel;
     float timeLeft = 30.0f;
     public GameObject dialog;
     public float imageXScale;
@@ -79,7 +80,7 @@ public class GameCamera : MonoBehaviour
     public void GoToNextLevel()
     {
         string LevelToLoadNumber = PlayerPrefs.GetString("LevelToLoad");
-        if (LevelToLoadNumber == numberLevel)
+        if (LevelToLoadNumber == countLevel)
         {
 
         }
@@ -112,6 +113,43 @@ public class GameCamera : MonoBehaviour
         dialog.SetActive(true);
         setStars(countStars);
 		countTime = false;
+
+        setScore();
+
+        //share result on facebook
+        FB.API("/app/scores?fields=score,user.limit(3)", HttpMethod.GET, handleScoresResponse);
+    }
+
+    void setScore()
+    {
+        int totalScore = 0;
+        for (int i = 0; i < Int32.Parse(countLevel); i++)
+        {
+            totalScore += PlayerPrefs.GetInt("Score_" + i, 0);
+        }
+
+        var scoreData = new Dictionary<string, string>();
+        scoreData["score"] = totalScore.ToString();
+
+        FB.API("/me/scores", HttpMethod.POST, delegate (IGraphResult result)
+        {
+            Debug.Log("score submitted sucessfully " + result.RawResult);
+        }, scoreData);
+    }
+
+    void handleScoresResponse(IGraphResult result)
+    {
+        UnityEngine.Debug.Log(result.RawResult);
+
+        IDictionary<String, object> data = result.ResultDictionary;
+        List<object> scoreList = (List<object>) data["data"];
+
+        foreach(object obj in scoreList)
+        {
+            var entryObj = (Dictionary<string, object>) obj;
+            var userObj = (Dictionary<string, object>) entryObj["user"];
+            Debug.Log(userObj["name"].ToString() + " , " + entryObj["score"].ToString());
+        }
     }
 
     private void setStars(int count)
