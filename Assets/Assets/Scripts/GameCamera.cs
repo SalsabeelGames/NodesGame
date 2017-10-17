@@ -8,7 +8,8 @@ using Facebook.Unity;
 
 public class GameCamera : MonoBehaviour
 {
-
+    public GameObject friendScorePanel;
+    public GameObject friendScrollList;
     public Text textTime;
     public int countLevel;
     float timeLeft = 30.0f;
@@ -150,6 +151,34 @@ public class GameCamera : MonoBehaviour
             var entryObj = (Dictionary<string, object>) obj;
             var userObj = (Dictionary<string, object>) entryObj["user"];
             Debug.Log(userObj["name"].ToString() + " , " + entryObj["score"].ToString());
+
+            GameObject scorePanel;
+            scorePanel = Instantiate(friendScorePanel) as GameObject;
+            scorePanel.transform.SetParent(friendScrollList.transform, false);
+
+            Transform fName = scorePanel.transform.Find("friendName");
+            Transform fScore = scorePanel.transform.Find("friendScore");
+            Transform fAvatar = scorePanel.transform.Find("friendAvatar");
+
+            Text fNameText = fName.GetComponent<Text>();
+            Text fScoreText = fScore.GetComponent<Text>();
+            Image fAvatarImage = fAvatar.GetComponent<Image>();
+
+            fNameText.text = userObj["name"].ToString();
+            fScoreText.text = entryObj["score"].ToString();
+
+            FB.API(userObj["id"].ToString() + "/picture?width=120&height=120", HttpMethod.GET, delegate (IGraphResult graphResult)
+            {
+                if(graphResult.Error != null)
+                {
+                    Debug.Log(graphResult.RawResult);
+                }
+                else
+                {
+                    Sprite sp = Sprite.Create(graphResult.Texture, new Rect(0, 0, 120, 120), new Vector2(0, 0));
+                    fAvatarImage.sprite = sp;
+                }
+            });
         }
     }
 
