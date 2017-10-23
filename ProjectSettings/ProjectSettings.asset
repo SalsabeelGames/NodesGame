@@ -6,7 +6,7 @@ PlayerSettings:
   serializedVersion: 12
   productGUID: 64044f3fe9a49514f82073ca8cd6d351
   AndroidProfiler: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 2
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -142,6 +142,7 @@ PlayerSettings:
   resolutionScalingMode: 0
   applicationIdentifier:
     Android: com.salsabeel.NodeGame
+    Standalone: com.salsabeel.NodeGame
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
@@ -217,7 +218,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Abd AlRhman/Documents/GitHub/NodesGame/user.keystore
+  AndroidKeystoreName: C:/Users/mohannad/.android/user.keystore
   AndroidKeyaliasName: key
   AndroidTVCompatibility: 1
   AndroidIsGame: 1
@@ -592,7 +593,7 @@ PlayerSettings:
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
     UNet: 1
-  facebookSdkVersion: pluginIncompatible
+  facebookSdkVersion: plugin
   apiCompatibilityLevel: 2
   cloudProjectId: fe53a608-c594-41ab-b3e1-5e9913c38ca8
   projectName: NodeGame
