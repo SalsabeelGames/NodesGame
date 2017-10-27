@@ -8,8 +8,9 @@ using Facebook.Unity;
 
 public class GameCamera : MonoBehaviour
 {
-    public GameObject friendScorePanel;
+    public GameObject scoreScrollPanel;
     public GameObject friendScrollList;
+    public GameObject friendScorePanel;
     public Text textTime;
     public int countLevel;
     float timeLeft = 30.0f;
@@ -18,6 +19,7 @@ public class GameCamera : MonoBehaviour
     public float imageYScale;
     public AudioSource sound;
     private bool countTime = true;
+    private bool scorePanelActive = false;
     
     void Start()
     {
@@ -77,6 +79,21 @@ public class GameCamera : MonoBehaviour
             }
             dialog.transform.localScale = new Vector3(imageXScale, imageYScale, 0);
         }
+
+        if (scorePanelActive)
+        {
+            if(scoreScrollPanel.transform.position.x <= 0.0f)
+            {
+                scoreScrollPanel.transform.Translate(Vector3.right * 350.0f * Time.deltaTime);
+            }
+            
+        } else
+        {
+            if (scoreScrollPanel.transform.position.x >= -44.0)
+            {
+                scoreScrollPanel.transform.Translate(Vector3.left * 350.0f * Time.deltaTime);
+            }
+        }
     }
 
     public void GoToNextLevel()
@@ -106,6 +123,9 @@ public class GameCamera : MonoBehaviour
         dialog.SetActive(true);
         countTime = false;
         timeLeft = 1;
+
+        //share result on facebook
+        FB.API("/app/scores?fields=score,user.limit(5)", HttpMethod.GET, handleScoresResponse);
     }
 
     private void viewWinScreen(int countStars)
@@ -117,9 +137,8 @@ public class GameCamera : MonoBehaviour
 		countTime = false;
 
         setScore();
-
         //share result on facebook
-        FB.API("/app/scores?fields=score,user.limit(3)", HttpMethod.GET, handleScoresResponse);
+        FB.API("/app/scores?fields=score,user.limit(5)", HttpMethod.GET, handleScoresResponse);
     }
 
     void setScore()
@@ -180,6 +199,12 @@ public class GameCamera : MonoBehaviour
                 }
             });
         }
+        showFriendScorePanel(true);
+    }
+
+    private void showFriendScorePanel(bool visiable)
+    {
+        scorePanelActive = visiable;
     }
 
     private void setStars(int count)
