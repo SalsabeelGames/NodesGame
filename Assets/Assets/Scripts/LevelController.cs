@@ -42,7 +42,10 @@ public class LevelController : MonoBehaviour
 
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     void changeColor(GameObject GO, Color color)

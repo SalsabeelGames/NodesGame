@@ -121,7 +121,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0
+  bundleVersion: 1.1
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -596,7 +596,7 @@ PlayerSettings:
   facebookSdkVersion: plugin
   apiCompatibilityLevel: 2
   cloudProjectId: fe53a608-c594-41ab-b3e1-5e9913c38ca8
-  projectName: NodeGame
+  projectName: InfiniteNodes
   organizationId: abdadel
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0

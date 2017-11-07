@@ -20,8 +20,28 @@ public class NodeModel : MonoBehaviour
     public int count = 0;
     int Toggel = -1;
 
+    //public List<LineModel> list;
     private void Start()
     {
+        string indexThisNode = getTextNode(this);
+        Lines.Clear();
+        foreach (NodeModel node in Nodes)
+        {
+            string indexNode = getTextNode(node);
+            LineModel line;
+            try
+            {
+                string nameLine = "L_" + indexThisNode + "_" + indexNode;
+                line = this.transform.parent.Find(nameLine).gameObject.GetComponent<LineModel>();
+            }
+            catch
+            {
+                string nameLine = "L_" + indexNode + "_" + indexThisNode;
+                line = this.transform.parent.Find(nameLine).gameObject.GetComponent<LineModel>();
+            }
+            Lines.Add(line);
+        }
+
 
     }
 
@@ -31,6 +51,14 @@ public class NodeModel : MonoBehaviour
         {
             scallNodeAnmimation();
         }
+    }
+
+    private string getTextNode(NodeModel node)
+    {
+        GameObject GO = node.gameObject.transform.Find("Leve").gameObject.transform.Find("Number").gameObject;
+        string NodeNumber = GO.GetComponent<Text>().text;
+        return NodeNumber;
+
     }
 
     private void scallNodeAnmimation()

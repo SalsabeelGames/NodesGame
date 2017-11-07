@@ -55,6 +55,10 @@ public class GameCamera : MonoBehaviour
     //Text outTime = ""
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
         if (countTime)
         {
             timeLeft -= Time.deltaTime;
