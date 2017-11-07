@@ -13,11 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedAppIndex: 0
   clientTokens:
-  - 
+  - 0faf0052b2a05e9282524a6160931b8f
   appIds:
   - 2075032996062283
   appLabels:
-  - App Name
+  - NodeGame
   cookie: 1
   logging: 1
   status: 1

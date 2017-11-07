@@ -58,8 +58,8 @@ public class MainMinue : MonoBehaviour {
             FB.ActivateApp();
             // Continue with Facebook SDK
             // ...
-            var perms = new List<string>() { "public_profile", "email", "user_friends" };
-            FB.LogInWithReadPermissions(perms, AuthCallback);
+            var perms = new List<string>() { "publish_actions"};
+            FB.LogInWithPublishPermissions(perms, AuthCallback);
         }
         else
         {
